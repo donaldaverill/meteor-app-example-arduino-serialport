@@ -1,0 +1,10 @@
+{
+  "packages": {
+    "streams": {},
+    "serialport": {
+      "git": "https://github.com/HumulusMaximus/meteor-serialport.git"
+    },
+    "bootstrap-3": {},
+    "moment": {}
+  }
+}
