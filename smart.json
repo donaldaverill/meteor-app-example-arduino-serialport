@@ -2,7 +2,7 @@
   "packages": {
     "streams": {},
     "serialport": {
-      "git": "https://github.com/HumulusMaximus/meteor-serialport.git"
+      "path": "/Users/donaldaverill/Dropbox/Dev/meteor/packages/serialport"
     },
     "bootstrap-3": {},
     "moment": {}

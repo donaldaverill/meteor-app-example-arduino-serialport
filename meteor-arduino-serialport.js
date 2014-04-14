@@ -13,7 +13,6 @@ if (Meteor.isClient) {
     notifications.on('lightState', function(lightState) {
         Session.set('lightState', lightState);
     });
-
     var toggleLight = function() {
         if (Session.get('lightState') === 0) {
             Session.set('lightState', 1);
@@ -21,8 +20,7 @@ if (Meteor.isClient) {
             Session.set('lightState', 0);
         }
         notifications.emit('toggleLight', Session.get('lightState'));
-    }
-
+    };
     Template.body.lightStateClass = function() {
         if (Session.get('lightState')) {
             return 'success';
@@ -50,29 +48,23 @@ if (Meteor.isServer) {
     notifications.permissions.write(function(userId, eventName) {
         return true;
     });
-
-    var serialPort = new SerialPort.SerialPort("/dev/tty.usbmodemfa131", {
+    var serialPort = new SerialPort.SerialPort("/dev/tty.usbmodemfd121", {
         baudrate: 9600,
         parser: SerialPort.parsers.readline('\r\n')
     });
-
     var sendToArduino = function(message) {
         serialPort.write(message);
-    }
-
+    };
     serialPort.on('open', function() {
         console.log('Port open');
     });
-
     serialPort.on('data', function(data) {
         notifications.emit('message', data, Date.now());
     });
-
     notifications.on('toggleLight', function(lightState) {
         sendToArduino(new Buffer([lightState]));
         notifications.emit('lightState', lightState);
     });
-
     notifications.on('getlightState', function() {
         sendToArduino(new Buffer([2]));
     });

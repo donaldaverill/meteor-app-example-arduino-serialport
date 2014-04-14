@@ -4,8 +4,7 @@
     "basePackages": {
       "streams": {},
       "serialport": {
-        "git": "https://github.com/HumulusMaximus/meteor-serialport.git",
-        "branch": "master"
+        "path": "../../packages/serialport"
       },
       "bootstrap-3": {},
       "moment": {}
@@ -17,9 +16,7 @@
         "commit": "9fcbbc9b7bf542827babc92089c19e730892a22f"
       },
       "serialport": {
-        "git": "https://github.com/HumulusMaximus/meteor-serialport.git",
-        "branch": "master",
-        "commit": "c3f1c74360796cb899261930ebad82bd4c01014c"
+        "path": "../../packages/serialport"
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
