@@ -1,8 +1,8 @@
 # Meteor to Arduino using serialport
 
-An example Meteor app showing communication with an Arduino Uno. This project uses the [meteor-serialport](https://github.com/HumulusMaximus/meteor-serialport) meteor package, which is [serialport](https://www.npmjs.org/package/serialport) repackaged for Meteor.
+An example Meteor app showing communication with an Arduino Uno. This project uses the [meteor-package-serialport](https://github.com/HumulusMaximus/meteor-package-serialport) meteor package, which is [serialport](https://www.npmjs.org/package/serialport) repackaged for Meteor.
 
-Be sure to plug in your Arduino to the serial port before starting meteor. The Arduino file for this project is included in this repository [here](https://github.com/HumulusMaximus/meteor-arduino-serialport/tree/master/Meteor_SerialPort_LED_Toggle). Upload it to your device and change the path:
+Be sure to plug in your Arduino to the serial port of your computer before starting meteor. The Arduino file for this project is included in this repository [here](https://github.com/HumulusMaximus/meteor-arduino-serialport/tree/master/Meteor_SerialPort_LED_Toggle). Upload it to your device and change the path:
 ```js
 var serialPort = new SerialPort.SerialPort("/yourPath", {
     baudrate: 9600,
