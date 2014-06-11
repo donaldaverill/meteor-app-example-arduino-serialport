@@ -48,7 +48,7 @@ if (Meteor.isServer) {
     notifications.permissions.write(function(userId, eventName) {
         return true;
     });
-    var serialPort = new SerialPort.SerialPort("/dev/tty.usbmodemfd121", {
+    var serialPort = new SerialPort.SerialPort("/dev/tty.usbserial-AD026BEG", {
         baudrate: 9600,
         parser: SerialPort.parsers.readline('\r\n')
     });
@@ -59,13 +59,16 @@ if (Meteor.isServer) {
         console.log('Port open');
     });
     serialPort.on('data', function(data) {
+        console.log('Receiving data');
         notifications.emit('message', data, Date.now());
     });
     notifications.on('toggleLight', function(lightState) {
+        console.log('Toggle Light');
         sendToArduino(new Buffer([lightState]));
         notifications.emit('lightState', lightState);
     });
     notifications.on('getlightState', function() {
+        console.log('Get Light State');
         sendToArduino(new Buffer([2]));
     });
 }
