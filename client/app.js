@@ -1,3 +1,4 @@
+Messages = new Mongo.Collection('messages');
 Template.main.helpers({
   lightStateClass: function() {
     return Template.instance().defaultLight().state ? 'success' : 'danger';
@@ -16,7 +17,10 @@ Template.main.helpers({
 Template.main.events({
   'click #clearMessages': function(e, t) {
     e.preventDefault();
-    Meteor.call('clearMessages');
+    var messages = Messages.find().fetch();
+    messages.forEach(function(message) {
+      Meteor.call('removeMessage', message._id);
+    });
   },
   'click #toggleLight': function(e, t) {
     e.preventDefault();

@@ -1,3 +1,10 @@
+var sendToArduino = function(message) {
+  serialPort.write(message);
+};
+var serialPort = new SerialPort.SerialPort('/dev/tty.usbmodemfd121', {
+  baudrate: 9600,
+  parser: SerialPort.parsers.readline('\r\n')
+});
 Meteor.startup(function() {
   Lights.remove({});
   Lights.insert({
@@ -9,33 +16,12 @@ Meteor.startup(function() {
 Meteor.publish('lights', function() {
   return Lights.find();
 });
+var messagePub;
 Meteor.publish('messages', function() {
-  return Messages.find();
+  messagePub = this;
+  return this.ready();
 });
 
-Meteor.methods({
-  toggleLight: function(light) {
-    var newState = light.state ? false : true;
-    sendToArduino(new Buffer([newState]));
-  },
-  getLightState: function() {
-    sendToArduino(new Buffer([2]));
-  },
-  message: function(newDoc) {
-    Messages.insert(newDoc);
-  },
-  clearMessages: function() {
-    Messages.remove({});
-  }
-});
-
-var sendToArduino = function(message) {
-  serialPort.write(message);
-};
-var serialPort = new SerialPort.SerialPort('/dev/tty.usbmodemfd121', {
-  baudrate: 9600,
-  parser: SerialPort.parsers.readline('\r\n')
-});
 serialPort.on('open', function() {
   console.log('Port open');
 });
@@ -51,6 +37,21 @@ serialPort.on('data', Meteor.bindEnvironment(function(data) {
     });
   } else if (parsedData.messageType === 'methodResponse') {
     parsedData.created = new Date();
-    Messages.insert(parsedData);
+    messagePub.added('messages', Random.id(), parsedData);
   }
 }));
+Meteor.methods({
+  message: function(newDoc) {
+    messagePub.added('messages', Random.id(), newDoc);
+  },
+  toggleLight: function(light) {
+    var newState = light.state ? false : true;
+    sendToArduino(new Buffer([newState]));
+  },
+  getLightState: function() {
+    sendToArduino(new Buffer([2]));
+  },
+  removeMessage: function(_id) {
+    messagePub.removed('messages', _id);
+  }
+});
