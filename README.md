@@ -27,4 +27,4 @@ var serialPort = new SerialPort.SerialPort("/yourPath", {
 });
 ```
 
-This example uses [Meteor Streams](https://atmospherejs.com/package/streams).
+This example has been updated to Meteor 1.1 and [Meteor Streams](https://atmospherejs.com/package/streams) has been removed since it has been deprecated. 

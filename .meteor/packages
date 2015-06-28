@@ -4,8 +4,5 @@
 # but you can also edit it by hand.
 
 standard-app-packages
-insecure
-streams
-serialport
-bootstrap-3
-moment
+twbs:bootstrap
+donaldaverill:serialport

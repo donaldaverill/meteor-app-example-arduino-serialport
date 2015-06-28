@@ -1,0 +1,43 @@
+<head>
+  <title>meteor-arduino-serialport</title>
+</head>
+
+<body>
+  {{> header}} {{> main}}
+</body>
+
+<template name="header">
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="container">
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name='main'>
+  <div class='container'>
+    <h2>Meteor/Arduino using serialport</h2>
+    <hr/>{{#if Template.subscriptionsReady}}
+    <button id='toggleLight' class='btn btn-small btn-{{lightStateClass}}'>Toggle LED</button>
+    <button id='clearMessages' class='btn btn-small btn-primary'>Clear Messages</button>
+    <button id='getLightState' class='btn btn-small btn-primary'>Get Light State</button>
+    <br>
+    <br>
+    <div id='messages'>
+      {{#each messages}}
+        {{#if isMessageType 'pinChange'}}
+        Light at pin {{pin}} toggled to {{#if state}}on{{else}}off{{/if}} at {{created}}
+        {{else}}
+          {{#if isMessageType 'methodResponse'}}
+            Method Response with pin : {{pin}}, state : {{#if state}}on{{else}}off{{/if}}, created : {{created}}
+          {{else}}
+            Unknown messageType.
+          {{/if}}
+        {{/if}}
+        <br>
+      {{/each}}
+    </div>
+    {{else}}Loading ...{{/if}}
+  </div>
+</template>
