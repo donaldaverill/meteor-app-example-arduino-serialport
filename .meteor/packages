@@ -5,4 +5,5 @@
 
 standard-app-packages
 twbs:bootstrap
-donaldaverill:serialport
+fourquet:serialport
+standard-minifiers

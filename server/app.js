@@ -1,7 +1,7 @@
 var sendToArduino = function(message) {
   serialPort.write(message);
 };
-var serialPort = new SerialPort.SerialPort('/dev/tty.usbmodemfd121', {
+var serialPort = new SerialPort.SerialPort('/dev/tty.usbmodemFA131', {
   baudrate: 9600,
   parser: SerialPort.parsers.readline('\r\n')
 });
